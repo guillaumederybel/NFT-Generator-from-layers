@@ -36,7 +36,9 @@ If the sum of all probabilities is under 100, the program will ask you if you wa
 For example :
 
 > Wich percentage should brown_eyes.png appear ? (default : 33.3333336 %): 10
+
 > Wich percentage should blue_eyes.png appear ? (default : 33.3333336 %): 20
+
 > Wich percentage should green_eyes.png appear ? (default : 33.3333336 %): 20
 
 The total percentage is 50, so the program will ask :
