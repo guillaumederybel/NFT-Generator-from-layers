@@ -18,7 +18,11 @@ class layer:
             rarity = input('Wich percentage should ' + file + ' appear ? (default : ' + str(default_rarity) + ' %): ')
             if rarity == '':
                 rarity = default_rarity
-            rarity = float(rarity)/100
+            try:
+                rarity = float(rarity)/100
+            except:
+                print('\n\'' + rarity + '\' is not a valid number.\n')
+                exit()
             entities.append([file, float(rarity)])
         return entities
 
@@ -29,15 +33,16 @@ class layer:
             entities.append(element[0])
             probabilties.append(element[1])
         if round(sum(probabilties), 4) < 1:
-            mod = input('The Sum of probabilities isn\'t equal to 100%, should we replace the missing percentage by nothing ? (y/n) (default : y): ')
+            mod = input('The Sum of probabilities isn\'t equal to 100%, should I replace the missing percentage by nothing ? (y/n) (default : y): ')
             if mod == 'y' or mod == 'Y' or mod == '':
                 blank = 1 - sum(probabilties)
                 probabilties.append(blank)
                 entities.append('')
             else:
+                print('\nThe total percentage might be equal to 100%.\n')
                 exit()
         if round(sum(probabilties), 4) > 1:
-            print('The total percentage might be equal to 100%.')
+            print('\nThe total percentage might be equal to 100% (or lower).\n')
             exit()
         choices = np.random.choice(entities, nft_count, p=probabilties)
         return choices
@@ -57,7 +62,7 @@ class layer:
         return nfts
 
     def edit_and_save(nfts):
-        save_dir = input('\nWhere should I save the generated NFTs ? (default : Generated_NFTs) : ')
+        save_dir = input('\nWhere should I save the generated NFT(s) ? (default : Generated_NFTs) : ')
 
         if save_dir == "":
             save_dir = "Generated_NFTs"
@@ -66,7 +71,7 @@ class layer:
             try:
                 os.mkdir(save_dir)
             except:
-                print('Couldn\'t create a folder to save NFTs. Please create one by yourself.')
+                print('\nCouldn\'t create a folder to save NFTs. Please create one by yourself, or choose another one.\n')
                 exit()
 
         print('\nCreating NFTs... This might take few seconds (it depends of the volume generated).\n')
@@ -88,19 +93,19 @@ if nft_count == '':
 try:
     nft_count = int(nft_count)
 except:
-    print('The entered value is not a valid number.')
+    print('\nThe entered value is not a valid number.\n')
     exit()
 
 layers_count = input('How many layers should we have ? : ')
 try:
     layers_count = int(layers_count)
 except:
-    print('The entered value is not a valid number.')
+    print('\nThe entered value is not a valid number.\n')
     exit()
 
 array_full = []
 while i < layers_count:
-    folder = input('Layer ' + str(i+1) + ' , wich folder should I look for this layer items ? : ')
+    folder = input('\nLayer ' + str(i+1) + ' , wich folder should I look for this layer items ? : ')
     if os.path.isdir(folder):
         choices = layer.choose_entity(layer.list_entities(layer(folder).image_path),nft_count)
         id = 1
@@ -113,7 +118,7 @@ while i < layers_count:
                 current_nft_list.append('void.png')
         array_full.append(current_nft_list)
     else:
-        print(folder + ' doesn\'t exists.')
+        print('\n\'' + folder + '\' folder doesn\'t exists.')
         exit()
     i+=1
 
