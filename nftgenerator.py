@@ -81,8 +81,23 @@ class layer:
             id+=1
   
 i=0
-nft_count = int(input('How many NFT would you like to generate ? (default : 1) : '))
-layers_count = int(input('How many layers should we have ? : '))
+
+nft_count = input('How many NFT would you like to generate ? (default : 1) : ')
+if nft_count == '':
+    nft_count = '1'
+try:
+    nft_count = int(nft_count)
+except:
+    print('The entered value is not a valid number.')
+    exit()
+
+layers_count = input('How many layers should we have ? : ')
+try:
+    layers_count = int(layers_count)
+except:
+    print('The entered value is not a valid number.')
+    exit()
+
 array_full = []
 while i < layers_count:
     folder = input('Layer ' + str(i+1) + ' , wich folder should I look for this layer items ? : ')
