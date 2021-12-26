@@ -1,6 +1,8 @@
 # NFT-Generator-from-layers
  This repo permits you to create an NFT from various layers you have chosen. You can custom the apparition rate of a layer, or of a layer entity.
 
+ You can create a table to list all layers and entities, and giving them a probability to drop.
+
 1. Install requirements
 
 > pip install -r requirements
