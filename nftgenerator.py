@@ -57,14 +57,27 @@ class layer:
         return nfts
 
     def edit_and_save(nfts):
+        save_dir = input('\nWhere should I save the generated NFTs ? (default : Generated_NFTs) : ')
+
+        if save_dir == "":
+            save_dir = "Generated_NFTs"
+
+        if not os.path.isdir(save_dir):
+            try:
+                os.mkdir(save_dir)
+            except:
+                print('Couldn\'t create a folder to save NFTs. Please create one by yourself.')
+                exit()
+
         print('\nCreating NFTs... This might take few seconds (it depends of the volume generated).\n')
+
         id = 1
         for nft in nfts:
             i=0
             while i<len(nft):
                 nft[0].paste(nft[i], nft[i])
                 i+=1
-            nft[0].save('NFT/nft#'+str(id)+'.png', quality=100)
+            nft[0].save(save_dir + '/nft#'+str(id)+'.png', quality=100)
             id+=1
   
 i=0
