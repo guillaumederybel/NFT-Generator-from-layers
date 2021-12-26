@@ -4,9 +4,8 @@ from PIL import Image
 
 class layer:
 
-    def __init__(self, image_path, rarity):
+    def __init__(self, image_path):
         self.image_path = image_path
-        self.rarity = rarity
 
     def list_entities(image_path):
         files = [file for file in os.listdir(image_path) if file.endswith('.png')]
@@ -30,7 +29,7 @@ class layer:
             entities.append(element[0])
             probabilties.append(element[1])
         if round(sum(probabilties), 4) < 1:
-            mod = input('Sum of probabilities isn\'t equal to 100%, should I replace the missing pourcentage by nothing ? (y/n) (default : y): ')
+            mod = input('The Sum of probabilities isn\'t equal to 100%, should we replace the missing percentage by nothing ? (y/n) (default : y): ')
             if mod == 'y' or mod == 'Y' or mod == '':
                 blank = 1 - sum(probabilties)
                 probabilties.append(blank)
@@ -75,7 +74,7 @@ array_full = []
 while i < layers_count:
     folder = input('Layer ' + str(i+1) + ' , wich folder should I look for this layer items ? : ')
     if os.path.isdir(folder):
-        choices = layer.choose_entity(layer.list_entities(layer(folder, 100).image_path),nft_count)
+        choices = layer.choose_entity(layer.list_entities(layer(folder).image_path),nft_count)
         id = 1
         current_nft_list = []
         for choice in choices:
